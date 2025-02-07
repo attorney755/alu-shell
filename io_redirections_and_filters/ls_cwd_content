@@ -1,0 +1,14 @@
+total 48
+drwxr-xr-x 2 attorney attorney 4096 Feb  7 11:03 .
+drwxr-xr-x 6 attorney attorney 4096 Feb  7 10:38 ..
+-rwxr-xr-x 1 attorney attorney   32 Feb  7 10:38 0-hello_world
+-rwxr-xr-x 1 attorney attorney   31 Feb  7 10:39 1-confused_smiley
+-rwxr-xr-x 1 attorney attorney   28 Feb  7 10:45 2-hellofile
+-rwxr-xr-x 1 attorney attorney   39 Feb  7 10:48 3-twofiles
+-rwxr-xr-x 1 attorney attorney   33 Feb  7 10:50 4-lastlines
+-rwxr-xr-x 1 attorney attorney   33 Feb  7 10:51 5-firstlines
+-rwxr-xr-x 1 attorney attorney   36 Feb  7 10:53 6-third_line
+-rwxr-xr-x 1 attorney attorney   99 Feb  7 10:58 7-file
+-rwxr-xr-x 1 attorney attorney   36 Feb  7 11:03 8-cwd_state
+-rw-r--r-- 1 attorney attorney   37 Feb  7 10:38 README.md
+-rw-r--r-- 1 attorney attorney    0 Feb  7 11:03 ls_cwd_content
