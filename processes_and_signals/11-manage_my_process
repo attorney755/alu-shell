@@ -1,37 +1,54 @@
 #!/usr/bin/env bash
-# script to manage deamon
 
-PROGRAM='manage_my_process'
-RELPATH="${0%/*}/${PROGRAM}"
-PIDFILE="${PIDFILE:-/var/run/my_process.pid}"
-declare -A MESSAGES=( 
-  ['start']='started'
-  ['stop']='stopped'
-  ['restart']='restarted'
-)
+# Path to the PID file
+PIDFILE="/var/run/my_process.pid"
 
-start() {
-  exec -- "${RELPATH}" &
-  echo "$!" >| "${PIDFILE}"
+# Function to start the process
+start_process() {
+    echo "Starting manage_my_process..."
+    # Start the process in the background and save its PID
+    (while true; do
+        echo "I am alive!" >> /tmp/my_process
+        sleep 2
+    done) &
+    echo $! > $PIDFILE
+    echo "manage_my_process started"
 }
 
-stop() {
-  trap '
-    trap RETURN
-    rm -f -- "${PIDFILE}"
-  ' RETURN
-  kill -- "$(< "${PIDFILE}")" 2> /dev/null
+# Function to stop the process
+stop_process() {
+    echo "Stopping manage_my_process..."
+    # Read the PID from the file and kill the process
+    if [ -f $PIDFILE ]; then
+        kill $(cat $PIDFILE)
+        rm -f $PIDFILE
+        echo "manage_my_process stopped"
+    else
+        echo "manage_my_process is not running"
+    fi
 }
 
-restart() {
-  stop
-  start
+# Function to restart the process
+restart_process() {
+    echo "Restarting manage_my_process..."
+    stop_process
+    start_process
+    echo "manage_my_process restarted"
 }
 
-if (( $# == 1 )) && [[ -v "MESSAGES[$1]" ]]
-then
-  "$1" && printf '%s %s\n' "${PROGRAM}" "${MESSAGES[$1]}"
-else
-  printf 'Usage: %s {start|stop|restart}\n' "${PROGRAM}"
-  exit 1
-fi
+# Check the argument and call the appropriate function
+case $1 in
+    start)
+        start_process
+        ;;
+    stop)
+        stop_process
+        ;;
+    restart)
+        restart_process
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+        ;;
+esac
